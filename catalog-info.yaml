@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "opentofu-tracing-talk"
+  description: "Slides for OpenTofu Tracing talk, originally given at DevOps Days Montreal, 2024"
+  annotations:
+    github.com/project-slug: liatrio/opentofu-tracing-talk
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - slidev
+    - slides
+    - site
+
+spec:
+  type: service
+  lifecycle: experimental
+  owner: "blairdrummond"
