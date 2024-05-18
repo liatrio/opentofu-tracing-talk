@@ -5,7 +5,7 @@
   ],
   "packageRules": [
     {
-      "matchPackageNames": ["slidev-theme-liatrio"],
+      "matchDepNames": ["slidev-theme-liatrio"],
       "matchPackagePatterns": ["^slidev-theme-liatrio"],
       "groupName": "liatrio slidev theme update"
     }
