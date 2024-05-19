@@ -8,6 +8,36 @@ image: /Logos.svg
 backgroundSize: contain
 ---
 
+<style>
+h1 {
+  font-family: "Verdana";
+  text-transform: none;
+}
+
+h3 {
+  font-weight: 800;
+}
+
+.col-right h3 {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center ;
+}
+
+.col-right img {
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+  text-align: center ;
+}
+
+.col-right {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center ;
+}
+</style>
+
 # Tracing Terraform Modules 
 
 ### Enabling Product Thinking with OpenTelemetry (and OpenTofu)
@@ -92,6 +122,10 @@ backgroundSize: 30em 70%
 
 ---
 
+todo fullscreen shot of the trace to show transitive module errors
+
+---
+
 <Transform :scale="1.2">
 
 # Why this is awesome
@@ -101,7 +135,7 @@ backgroundSize: 30em 70%
 - Gets all module version info, *even for unpinned modules*. 
 - External API calls can be traced too 🤯
 
-### Tracing FTW
+### *Tracing FTW*
 
 - When we see an error we'll know:
   + the resource in the module that caused the error 
@@ -160,69 +194,40 @@ backgroundSize: 30em 30%
 - OTel for CI/CD and Batch is going to be a game-changer.
 - *This technology will all feel obvious in retrospect.*
 
-### Just Adopt OTel
-
 </Transform>
+
+---
+
+# Collaborators
+
+<div style="font-size: 30px;">
+Thanks to my Liatrio colleagues, who implemented a lot of this work and without whom there would not have been a demo!
+</div>
+
+
+<div class="slidev-layout flex">
+  <div class="item flex">
+    <Portrait src="/ryan.png" name="Ryan Hoofard" title="DevOps Engineer" />
+  </div>
+  <div class="item flex">
+    <Portrait src="/alice.png" name="Alice Jones" title="DevOps Engineer" />
+  </div>
+  <div class="item flex">
+    <Portrait src="/adriel.png" name="Adriel Perkins" title="DevOps Engineer" />
+  </div>
+</div>
+
 
 ---
 layout: two-cols
 ---
 
-<style>
-.col-right .h3 {
-  width: 50%;
-  margin: 0 auto;
-  text-align: center ;
-}
+# Thanks!
 
-.col-right img {
-  width: 50%;
-  display: block;
-  margin: 0 auto;
-  text-align: center ;
-}
-
-.col-right {
-  width: 50%;
-  margin: 0 auto;
-  text-align: center ;
-}
-</style>
-
-# The ` ` Liatrio` `Team
-
-<Transform :scale="1.6">
-
-### Collaborators:
-
-Thanks to my collaborators on this project
-
-- Ryan Hoofard
-- Alice Jones
-- Adriel Perkins
-
-who are the reason there's code here!
-
-</Transform>
+<div class="slidev-layout flex -mt-10">
+<Portrait src="/me.png" name="Blair Drummond" title="DevOps Engineer" desc="Kubernetes nerd (Montréal)" email="blaird@liatrio.com"/>
+</div>
 
 ::right::
 
-<Transform :scale="1.7">
-
-### Speaker
-
-![me](/me.jpg){width=100%}
-
-Blair Drummond
-
-[blaird@liatrio.com](mailto:blaird@liatrio.com)
-
-</Transform>
-
----
-layout: about
----
-
----
-layout: mic-drop
----
+![Liatrio](/liatrio.svg)
