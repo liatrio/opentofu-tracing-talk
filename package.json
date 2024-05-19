@@ -11,7 +11,7 @@
     "@slidev/cli": "^0.49.0-beta.2",
     "@slidev/theme-default": "latest",
     "@slidev/theme-seriph": "latest",
-    "slidev-theme-liatrio": "git+ssh://git@github.com:liatrio/slidev-theme-liatrio#semver:v0.1.1",
+    "slidev-theme-liatrio": "git+ssh://git@github.com:liatrio/slidev-theme-liatrio#semver:v0.X",
     
     "vue": "^3.4.21"
   },
