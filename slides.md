@@ -164,34 +164,60 @@ backgroundSize: 30em 30%
 
 </Transform>
 
-
-
-
 ---
 layout: two-cols
 ---
 
-# The Team
+<style>
+.col-right .h3 {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center ;
+}
+
+.col-right img {
+  width: 50%;
+  display: block;
+  margin: 0 auto;
+  text-align: center ;
+}
+
+.col-right {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center ;
+}
+</style>
+
+# The ` ` Liatrio` `Team
+
+<Transform :scale="1.6">
 
 ### Collaborators:
 
-Thanks to
+Thanks to my collaborators on this project
 
-- Ryan Hoofard 
-- Alice Jones 
+- Ryan Hoofard
+- Alice Jones
 - Adriel Perkins
 
-Who worked with me on this project.
+who are the reason there's code here!
+
+</Transform>
 
 ::right::
 
-### Reach Out!
+<Transform :scale="1.7">
 
-![me](/me.jpg){width=50%}
+### Speaker
+
+![me](/me.jpg){width=100%}
 
 Blair Drummond
 
 [blaird@liatrio.com](mailto:blaird@liatrio.com)
+
+</Transform>
 
 ---
 layout: about
