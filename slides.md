@@ -224,10 +224,13 @@ layout: two-cols
 
 # Thanks!
 
-<div class="slidev-layout flex -mt-10">
+<div class="slidev-layout flex -mt-5">
 <Portrait src="/me.png" name="Blair Drummond" title="DevOps Engineer" desc="Kubernetes nerd (Montréal)" email="blaird@liatrio.com"/>
 </div>
 
 ::right::
 
-![Liatrio](/liatrio.svg)
+<img src="/liatrio.png" style="padding-top: 30px; padding-bottom: 50px; transform: scale(3);" />
+
+
+TODO put cards with what Liatrio does here
