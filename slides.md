@@ -4,7 +4,7 @@ author: blairdrummond
 download: true
 mdc: true
 layout: cover-with-image
-image: /splash.svg
+image: /Logos.svg
 backgroundSize: contain
 ---
 
