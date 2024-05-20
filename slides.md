@@ -18,6 +18,14 @@ h3 {
   font-weight: 800;
 }
 
+ul {
+  padding-top: 20px;
+}
+
+ul ul {
+  padding-top: 0px;
+}
+
 .col-right h3 {
   width: 50%;
   margin: 0 auto;
@@ -45,6 +53,11 @@ h3 {
 Blair Drummond
 
 ---
+
+
+TODO explain what OpenTofu and OpenTelemetry are?
+
+---
 layout: image-right
 image: /ca-tf-modules.png
 backgroundSize: 30em 90%
@@ -52,53 +65,54 @@ backgroundSize: 30em 90%
 
 # Reusable Terraform Modules
 
-Common pattern in enterprises. Teams can leverage platform-provided terraform modules.
+<Transform :scale="1.7">
 
-### Architecture Patterns
+- Security Guardrails built-in
 
-- Platform teams can provide "best practice" designs/baselines
+- Quick-Start for app teams
 
-### Security Guardrails built in
+- Standard Architectures
 
-- Regulated environments can re-use secure-by-default modules
+</Transform>
 
 ---
 
 # We asked: How do we measure success?
 
-<Transform :scale="1.1">
+<Transform :scale="1.8">
 
-### Are your modules being used?
+- Are your modules being used? Which ones?
 
-- Which teams are using your modules? Which versions?
-- *How often are the modules run?*
+- What is the developer experience of your modules?
 
-### What is the developer experience of your modules?
+- Are errors reported manually or automatically?
 
-- How fast do they deploy?
-- If there are errors, what are the errors?
-
-
-### Are errors reported manually or automatically?
-
-- Are users reporting the errors to the platform team?
 </Transform>
 
 ---
 
-# Deja-Vu: We've done this before
+# ...This is just Observability
 
-<Transform :scale="1.7">
-
-### This is just Observability
+<Transform :scale="1.8">
 
 - *traces:* see speed, errors, and dependencies
 
 - *metrics:* capture usage statistics
 
-- *understand* how people use our service
-
 - *investigate* unexplained errors
+
+</Transform>
+
+---
+
+
+# What could "Good" Look like? 
+
+<Transform :scale="1.8">
+
+- Instrument [OpenTofu](https://opentofu.org/) 
+- Instrument CI/CD and/or the [Flux Tofu-Controller](https://github.com/flux-iac/tofu-controller)
+- Enrich telemetry with attributes from git/kubernetes
 
 </Transform>
 
@@ -108,17 +122,11 @@ image: /trace-with-errors.png
 backgroundSize: 30em 70%
 ---
 
-# What could "Good" Look like? 
-
-- Instrument CI/CD Pipelines and or the [Flux Tofu-Controller](https://github.com/flux-iac/tofu-controller)
-- Instrument [OpenTofu](https://opentofu.org/) 
-- We can now observe infrastructure management!
-
-### This would be a boring talk if we didn't share the code
+### This would be a boring talk if we didn't have code
 
 - [github.com/liatrio/opentofu-tracing-talk](https://github.com/liatrio/opentofu-tracing-talk)
 
-- This is a PoC, but this aligns with ongoing efforts in the OTel community
+- *This is a PoC, but this aligns with ongoing efforts in the OTel community*
 
 ---
 
@@ -126,14 +134,24 @@ todo fullscreen shot of the trace to show transitive module errors
 
 ---
 
-<Transform :scale="1.2">
-
 # Why this is awesome
+
+<Transform :scale="1.7">
 
 - Existing terraform modules require no changes.
 - Recursively traces all sub-modules
 - Gets all module version info, *even for unpinned modules*. 
 - External API calls can be traced too 🤯
+
+</Transform>
+
+---
+
+TODO code-snippet that shows TRACEPARENT and tracing apply
+
+---
+
+<Transform :scale="1.8">
 
 ### *Tracing FTW*
 
@@ -152,42 +170,48 @@ backgroundSize: 30em 30%
 
 # Deriving metrics
 
-### Where is the value?
-
 - Which modules are widely used? Prioritize!
 
-### Version adoption curves
+- Are people upgrading their Terraform modules?
 
-- Who's on old versions of a module?
-
-### Drift-Detection
-
-- Modules which change resources every run may be non-idempotent!
+- Drift-Detection: Modules which change resources every run may be non-idempotent!
 
 ---
 
 # What's next?
 
+<Transform :scale="1.4">
+
 ### Environment Variable Context Propogation
 
-- Shockingly, context propogation for non-HTTP interactions **does not exist**
-- We used an *informal but common* convention called `TRACEPARENT`.
+- Context propogation for non-HTTP interactions **does not exist yet**
+- We used an *informal but common* convention called `TRACEPARENT`
 - Support for environment variable propogation is in-progress:
   + [opentelemetry-specification issue #740](https://github.com/open-telemetry/opentelemetry-specification/issues/740)
   + [opentelemetry proposal PR #241](https://github.com/open-telemetry/oteps/pull/241)
+
+</Transform>
   
+---
+  
+# What's next?
+
+<Transform :scale="1.4">
+
 ### CI/CD Semantic Conventions
   
-- We're in the OTel Semantic Conventions SIG working on CI/CD schema standards
+- We're in the OTel group for CI/CD Semantic Conventions
   + [open-telemetry/semantic-conventions issue #915](https://github.com/open-telemetry/semantic-conventions/issues/915)
   
-- This will make Tofu-Controller generated traces interoperable and standardized
+- This will inform Pipeline/Tofu-Controller trace attributes
+
+</Transform>
 
 ---
 
-# What's next? (Part 2)
+# What's next? (takeaways)
 
-<Transform :scale="1.8">
+<Transform :scale="1.4">
 
 ### Tracing isn't just for Web Services
 
