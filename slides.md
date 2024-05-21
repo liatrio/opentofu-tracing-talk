@@ -54,8 +54,22 @@ Blair Drummond
 
 ---
 
+# Recap
 
-TODO explain what OpenTofu and OpenTelemetry are?
+<Transform :scale="1.3">
+
+## OpenTelemetry
+
+- The standard supported by all major log/metric/tracing providers
+- OpenTelemetry enables *distributed tracing* and *context propogation*
+
+<div class="mt-7"></div>
+
+## OpenTofu
+
+- The open source fork of Terraform
+
+</Transform>
 
 ---
 layout: image-right
@@ -164,8 +178,8 @@ TODO code-snippet that shows TRACEPARENT and tracing apply
 
 ---
 layout: image-right
-image: /versions.png
-backgroundSize: 30em 30%
+image: /span-metrics.png
+backgroundSize: 30em 60%
 ---
 
 # Deriving metrics
@@ -175,6 +189,10 @@ backgroundSize: 30em 30%
 - Are people upgrading their Terraform modules?
 
 - Drift-Detection: Modules which change resources every run may be non-idempotent!
+
+---
+
+![](/module-usage.png)
 
 ---
 
