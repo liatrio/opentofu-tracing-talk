@@ -25,25 +25,6 @@ ul {
 ul ul {
   padding-top: 0px;
 }
-
-.col-right h3 {
-  width: 50%;
-  margin: 0 auto;
-  text-align: center ;
-}
-
-.col-right img {
-  width: 50%;
-  display: block;
-  margin: 0 auto;
-  text-align: center ;
-}
-
-.col-right {
-  width: 50%;
-  margin: 0 auto;
-  text-align: center ;
-}
 </style>
 
 # Tracing Terraform Modules 
@@ -53,23 +34,22 @@ ul ul {
 Blair Drummond
 
 ---
+layout: two-cols
+---
 
-# Recap
-
-<Transform :scale="1.3">
-
-## OpenTelemetry
+![OpenTelemetry](/otel.png){width=280}
 
 - The standard supported by all major log/metric/tracing providers
 - OpenTelemetry enables *distributed tracing* and *context propogation*
 
-<div class="mt-7"></div>
+::right::
 
-## OpenTofu
+<div class="mt-14"></div>
 
-- The open source fork of Terraform
+![OpenTofu](/opentofu.svg){width=200}
 
-</Transform>
+- The open source fork of Terraform (Linux Foundation)
+
 
 ---
 layout: image-right
@@ -125,16 +105,27 @@ backgroundSize: 30em 90%
 <Transform :scale="1.8">
 
 - Instrument [OpenTofu](https://opentofu.org/) 
+
 - Instrument CI/CD and/or the [Flux Tofu-Controller](https://github.com/flux-iac/tofu-controller)
+
 - Enrich telemetry with attributes from git/kubernetes
 
 </Transform>
+
+
+---
+
+## Tofu-Controller (Flux) orchestrates `tofu plan/apply`
+
+![tofu-controller](/tf-controller-basic-architecture.png){width=800}
 
 ---
 layout: image-right
 image: /trace-with-errors.png
 backgroundSize: 30em 70%
 ---
+
+<div class="mb-34"></div>
 
 ### This would be a boring talk if we didn't have code
 
@@ -276,11 +267,9 @@ layout: two-cols
 
 ::right::
 
-<img src="/liatrio.png" style="padding-top: 40px; padding-bottom: 60px; transform: scale(3);" />
+<img src="/liatrio.png" class="w-50 ml-30" />
 
-</br>
-
-<div class="grid grid-cols-3 -ml-33">
+<div class="grid grid-cols-3 mt-10 w-80">
   <div class="h-48">
     <Icon icon="platforms" />    
     <Icon icon="security" />
@@ -296,7 +285,7 @@ layout: two-cols
 </div>
   
   
-<div class="grid grid-cols-2 mt-12">
+<div class="grid grid-cols-2 mt-12 ml-27 w-50">
   <div class="h-48">
     <QRCode value="https://liatrio.com" />
   </div>
