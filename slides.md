@@ -10,7 +10,7 @@ backgroundSize: contain
 
 <style>
 h1 {
-  font-family: "Verdana";
+  font-family: "DM Sans";
   text-transform: none;
 }
 
@@ -234,10 +234,10 @@ Thanks to my Liatrio colleagues, who implemented a lot of this work and without 
     <Portrait src="/ryan.png" name="Ryan Hoofard" title="DevOps Engineer" />
   </div>
   <div class="item flex">
-    <Portrait src="/alice.png" name="Alice Jones" title="DevOps Engineer" />
+    <Portrait src="/alice.png" name="Alice Jones" title="Lead DevOps Engineer" />
   </div>
   <div class="item flex">
-    <Portrait src="/adriel.png" name="Adriel Perkins" title="DevOps Engineer" />
+    <Portrait src="/adriel.png" name="Adriel Perkins" title="Lead DevOps Engineer" />
   </div>
 </div>
 
@@ -246,15 +246,44 @@ Thanks to my Liatrio colleagues, who implemented a lot of this work and without 
 layout: two-cols
 ---
 
-# Thanks!
+# Thanks for Listening!
 
-<div class="slidev-layout flex -mt-5">
-<Portrait src="/me.png" name="Blair Drummond" title="DevOps Engineer" desc="Kubernetes nerd (Montréal)" email="blaird@liatrio.com"/>
+<Transform :scale="1.3">
+
+<div class="slidev-layout flex -mt-30 -ml-20">
+<FramelessPortrait src="/me.png" name="Blair Drummond" title="Principal DevOps Engineer" desc="Kubernetes nerd (Montréal)" email="blaird@liatrio.com"/>
 </div>
+
+</Transform>
 
 ::right::
 
-<img src="/liatrio.png" style="padding-top: 30px; padding-bottom: 50px; transform: scale(3);" />
+<img src="/liatrio.png" style="padding-top: 40px; padding-bottom: 60px; transform: scale(3);" />
 
+</br>
 
-TODO put cards with what Liatrio does here
+<div class="grid grid-cols-3 -ml-33">
+  <div class="h-48">
+    <Icon icon="platforms" />    
+    <Icon icon="security" />
+  </div>
+  <div class="h-48">
+    <Icon icon="enablement" />   
+    <Icon icon="cloud-native" /> 
+  </div>
+  <div class="h-48">
+    <Icon icon="mlops" />        
+    <Icon icon="modernization" />
+  </div>
+</div>
+  
+  
+<div class="grid grid-cols-2 mt-12">
+  <div class="h-48">
+    <QRCode value="https://liatrio.com" />
+  </div>
+  <div class="h-8 mt-7 ml-5">
+    <h2>liatrio.com</h2>
+  </div>
+</div>
+  
