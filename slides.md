@@ -125,17 +125,23 @@ image: /trace-with-errors.png
 backgroundSize: 30em 70%
 ---
 
-<div class="mb-34"></div>
+<div class="mb-20"></div>
 
 ### This would be a boring talk if we didn't have code
 
-- [github.com/liatrio/opentofu-tracing-talk](https://github.com/liatrio/opentofu-tracing-talk)
+- [github.com/liatrio/tag-o11y-quick-start-manifests](tag-o11y-quick-start-manifests)
+
+<div class="ml-30 mt-5">
+<QRCode value="https://github.com/liatrio/tag-o11y-quick-start-manifests" />
+</div>
 
 - *This is a PoC, but this aligns with ongoing efforts in the OTel community*
 
 ---
-
-todo fullscreen shot of the trace to show transitive module errors
+layout: image
+image: /detailed-trace.png
+backgroundSize: 100%
+---
 
 ---
 
@@ -152,7 +158,38 @@ todo fullscreen shot of the trace to show transitive module errors
 
 ---
 
-TODO code-snippet that shows TRACEPARENT and tracing apply
+# `TRACEPARENT`
+
+<Transform :scale="0.8">
+
+```go
+	var ctx context.Context
+	var otelSpan trace.Span
+	var displayArgs string
+	{
+		// At minimum we emit a span covering the entire command execution.
+		_, displayArgs = shquot.POSIXShellSplit(os.Args)
+		if os.Getenv("TRACEPARENT") != "" {
+			tp, _ := traceparent.LoadFromEnv()
+			var flags trace.TraceFlags = 0
+			if tp.Sampling {
+				flags = 1
+			}
+			sc := trace.SpanContext{}.
+				WithTraceID(trace.TraceID(tp.TraceId)).
+				WithSpanID(trace.SpanID(tp.SpanId)).
+				WithTraceFlags(flags).
+				WithRemote(true)
+			ctx, otelSpan = tracer.Start(trace.ContextWithRemoteSpanContext(context.Background(), sc), fmt.Sprintf("tofu %s", displayArgs))
+
+		} else {
+			ctx, otelSpan = tracer.Start(context.Background(), fmt.Sprintf("tofu %s", displayArgs))
+		}
+		defer otelSpan.End()
+	}
+```
+
+</Transform>
 
 ---
 
@@ -182,8 +219,10 @@ backgroundSize: 30em 60%
 - Drift-Detection: Modules which change resources every run may be non-idempotent!
 
 ---
-
-![](/module-usage.png)
+layout: image
+image: /module-usage.png
+backgroundSize: 100%
+---
 
 ---
 
@@ -202,25 +241,32 @@ backgroundSize: 30em 60%
 </Transform>
   
 ---
-  
-# What's next?
+layout: image
+image: /ci-cd-conventions.png
+backgroundSize: 90%
+---
 
-<Transform :scale="1.4">
-
-### CI/CD Semantic Conventions
+---
   
-- We're in the OTel group for CI/CD Semantic Conventions
-  + [open-telemetry/semantic-conventions issue #915](https://github.com/open-telemetry/semantic-conventions/issues/915)
+# CI/CD Observability end-to-end
   
-- This will inform Pipeline/Tofu-Controller trace attributes
+<div class="grid grid-cols-2 mt-12 ml-10 w-250">
+  <div class="h-48 mt-15">
+    <p class="flex -ml-11" style="width: 220px; text-align: center;">Liatrio's Grafana Dashboard</p>
+    <QRCode value="https://grafana.com/grafana/dashboards/20976-engineering-effectiveness-metrics/" size=130 />
+  </div>
+  <div class="h-480 -ml-70 -mt-10">
 
-</Transform>
+![Git Metrics](/grafana.drawio.png){width=600}
+
+  </div>
+</div>
 
 ---
 
-# What's next? (takeaways)
+# Takeaways
 
-<Transform :scale="1.4">
+<Transform :scale="1.7">
 
 ### Tracing isn't just for Web Services
 
@@ -246,7 +292,7 @@ Thanks to my Liatrio colleagues, who implemented a lot of this work and without 
     <Portrait src="/alice.png" name="Alice Jones" title="Lead DevOps Engineer" />
   </div>
   <div class="item flex">
-    <Portrait src="/adriel.png" name="Adriel Perkins" title="Lead DevOps Engineer" />
+    <Portrait src="/adriel.png" name="Adriel Perkins" title="Lead DevOps Engineer" desc="OTel member" />
   </div>
 </div>
 
@@ -260,7 +306,7 @@ layout: two-cols
 <Transform :scale="1.3">
 
 <div class="slidev-layout flex -mt-30 -ml-20">
-<FramelessPortrait src="/me.png" name="Blair Drummond" title="Principal DevOps Engineer" desc="Kubernetes nerd (Montréal)" email="blaird@liatrio.com"/>
+<FramelessPortrait src="/me.png" name="Blair Drummond" title="Lead DevOps Engineer" desc="Kubernetes nerd (Montréal)" email="blaird@liatrio.com"/>
 </div>
 
 </Transform>
