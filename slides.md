@@ -65,19 +65,15 @@ backgroundSize: 30em 90%
 
 - Quick-Start for app teams
 
-- Standard Architectures
-
 </Transform>
 
 ---
 
-# We asked: How do we measure success?
+# How do we measure success?
 
 <Transform :scale="1.8">
 
 - Are your modules being used? Which ones?
-
-- What is the developer experience of your modules?
 
 - Are errors reported manually or automatically?
 
@@ -87,31 +83,40 @@ backgroundSize: 30em 90%
 
 # ...This is just Observability
 
-<Transform :scale="1.8">
+<Transform :scale="2.1">
 
 - *traces:* see speed, errors, and dependencies
 
 - *metrics:* capture usage statistics
 
-- *investigate* unexplained errors
-
 </Transform>
 
 ---
-
 
 # What could "Good" Look like? 
 
 <Transform :scale="1.8">
 
-- Instrument [OpenTofu](https://opentofu.org/) 
+- Trace the modules used (recursively)
 
-- Instrument CI/CD and/or the [Flux Tofu-Controller](https://github.com/flux-iac/tofu-controller)
+- Understand which teams are calling these modules
 
-- Enrich telemetry with attributes from git/kubernetes
+- Correlate errors to the modules and teams impacted
 
 </Transform>
 
+---
+
+# Insight requires instrumentation end-to-end
+
+<Transform :scale="1.8">
+
+- Instrument [OpenTofu](https://opentofu.org/) 
+
+- Instrument the Orchestator:
+  + in this case, the [Flux Tofu-Controller](https://github.com/flux-iac/tofu-controller)
+
+</Transform>
 
 ---
 
@@ -150,73 +155,24 @@ backgroundSize: 100%
 <Transform :scale="1.7">
 
 - Existing terraform modules require no changes.
-- Recursively traces all sub-modules
-- Gets all module version info, *even for unpinned modules*. 
-- External API calls can be traced too 🤯
+
+- Gets all submodule version info, *even for unpinned modules*. 
 
 </Transform>
 
----
-
-# `TRACEPARENT`
-
-<Transform :scale="0.8">
-
-```go
-	var ctx context.Context
-	var otelSpan trace.Span
-	var displayArgs string
-	{
-		// At minimum we emit a span covering the entire command execution.
-		_, displayArgs = shquot.POSIXShellSplit(os.Args)
-		if os.Getenv("TRACEPARENT") != "" {
-			tp, _ := traceparent.LoadFromEnv()
-			var flags trace.TraceFlags = 0
-			if tp.Sampling {
-				flags = 1
-			}
-			sc := trace.SpanContext{}.
-				WithTraceID(trace.TraceID(tp.TraceId)).
-				WithSpanID(trace.SpanID(tp.SpanId)).
-				WithTraceFlags(flags).
-				WithRemote(true)
-			ctx, otelSpan = tracer.Start(trace.ContextWithRemoteSpanContext(context.Background(), sc), fmt.Sprintf("tofu %s", displayArgs))
-
-		} else {
-			ctx, otelSpan = tracer.Start(context.Background(), fmt.Sprintf("tofu %s", displayArgs))
-		}
-		defer otelSpan.End()
-	}
-```
-
-</Transform>
-
----
-
-<Transform :scale="1.8">
-
-### *Tracing FTW*
-
-- When we see an error we'll know:
-  + the resource in the module that caused the error 
-  + which git commit the plan/apply was run against
-  + which team encountered the issue
-
-</Transform>
-
----
-layout: image-right
-image: /span-metrics.png
-backgroundSize: 30em 60%
 ---
 
 # Deriving metrics
+
+<Transform :scale="1.7">
 
 - Which modules are widely used? Prioritize!
 
 - Are people upgrading their Terraform modules?
 
-- Drift-Detection: Modules which change resources every run may be non-idempotent!
+- Drift-Detection: important to catch!
+
+</Transform>
 
 ---
 layout: image
@@ -226,20 +182,16 @@ backgroundSize: 100%
 
 ---
 
-# What's next?
+<Transform :scale="1.7">
 
-<Transform :scale="1.4">
+# Moving Upstream
 
-### Environment Variable Context Propogation
+- The stuff we did isn't spec compliant, yet...
 
-- Context propogation for non-HTTP interactions **does not exist yet**
-- We used an *informal but common* convention called `TRACEPARENT`
-- Support for environment variable propogation is in-progress:
-  + [opentelemetry-specification issue #740](https://github.com/open-telemetry/opentelemetry-specification/issues/740)
-  + [opentelemetry proposal PR #241](https://github.com/open-telemetry/oteps/pull/241)
+- ...Because we're working upstream on the spec
 
 </Transform>
-  
+
 ---
 layout: image
 image: /ci-cd-conventions.png
@@ -264,6 +216,33 @@ backgroundSize: 90%
 
 ---
 
+# `TRACEPARENT` context propogator
+
+<Transform :scale="1.3">
+
+```go
+if os.Getenv("TRACEPARENT") != "" {
+	tp, _ := traceparent.LoadFromEnv()
+	var flags trace.TraceFlags = 0
+	if tp.Sampling {
+		flags = 1
+	}
+	sc := trace.SpanContext{}.
+		WithTraceID(trace.TraceID(tp.TraceId)).
+		WithSpanID(trace.SpanID(tp.SpanId)).
+		WithTraceFlags(flags).
+		WithRemote(true)
+	ctx, otelSpan = tracer.Start(
+		trace.ContextWithRemoteSpanContext(context.Background(), sc),
+		fmt.Sprintf("tofu %s", displayArgs),
+	)
+}
+```
+
+</Transform>
+
+---
+
 # Takeaways
 
 <Transform :scale="1.7">
@@ -283,16 +262,12 @@ backgroundSize: 90%
 Thanks to my Liatrio colleagues, who implemented a lot of this work and without whom there would not have been a demo!
 </div>
 
-
-<div class="slidev-layout flex">
+<div class="slidev-layout flex -mt-10 ml-10 w-200">
   <div class="item flex">
     <Portrait src="/ryan.png" name="Ryan Hoofard" title="DevOps Engineer" />
   </div>
   <div class="item flex">
     <Portrait src="/alice.png" name="Alice Jones" title="Lead DevOps Engineer" />
-  </div>
-  <div class="item flex">
-    <Portrait src="/adriel.png" name="Adriel Perkins" title="Lead DevOps Engineer" desc="OTel member" />
   </div>
 </div>
 
@@ -305,8 +280,13 @@ layout: two-cols
 
 <Transform :scale="1.3">
 
-<div class="slidev-layout flex -mt-30 -ml-20">
-<FramelessPortrait src="/me.png" name="Blair Drummond" title="Lead DevOps Engineer" desc="Kubernetes nerd (Montréal)" email="blaird@liatrio.com"/>
+<div class="grid grid-cols-2 mt-30 ml-5 w-90">
+  <div class="slidev-layout flex w-80 -mt-28 -ml-20">
+    <FramelessPortrait src="/me.png" name="Blair Drummond" title="Principal DevOps Engineer" desc="Kubernetes nerd (Montréal)" email="blaird@liatrio.com"/>
+  </div>
+  <div class="slidev-layout flex w-80 -mt-28 -ml-20">
+    <FramelessPortrait src="/adriel.png" name="Adriel Perkins" title="Lead DevOps Engineer" desc="Observability Practice Lead" email="adrielp@liatrio.com"/>
+  </div>
 </div>
 
 </Transform>

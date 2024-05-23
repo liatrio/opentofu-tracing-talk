@@ -27,7 +27,7 @@ defineProps<{
           <h2> {{ name }} </h2>
         </div>
         <div class="flex -mt-20 justify-center items-center p-8 max-h-md object-cover" >
-          <h3 style="font-weight: 100;"> {{ title }} </h3>
+          <h3 style="font-weight: 100; text-align: center;"> {{ title }} </h3>
         </div>
         <div class="flex -mt-16 justify-center items-center p-8 max-h-md object-cover" >
           <p style="font-weight: 100;"> {{ desc }} </p>
