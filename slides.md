@@ -34,22 +34,22 @@ ul ul {
 Blair Drummond
 
 ---
-layout: two-cols
+
+![OpenTofu](/opentofu.svg){width=400px}
+
+<Transform :scale="1.8">
+
+- The Open Source Successor to Terraform
+
+- Also `Weave TF-Controller => Flux Tofu-Controller`
+
+</Transform>
+
 ---
 
-![OpenTelemetry](/otel.png){width=280}
+# A Trace is like Poutine
 
-- The standard supported by all major log/metric/tracing providers
-- OpenTelemetry enables *distributed tracing* and *context propogation*
-
-::right::
-
-<div class="mt-14"></div>
-
-![OpenTofu](/opentofu.svg){width=200}
-
-- The open source fork of Terraform (Linux Foundation)
-
+![Traces Explained](/trace-explained2.png)
 
 ---
 layout: image-right
@@ -216,33 +216,6 @@ backgroundSize: 90%
 
 ---
 
-# `TRACEPARENT` context propogator
-
-<Transform :scale="1.3">
-
-```go
-if os.Getenv("TRACEPARENT") != "" {
-	tp, _ := traceparent.LoadFromEnv()
-	var flags trace.TraceFlags = 0
-	if tp.Sampling {
-		flags = 1
-	}
-	sc := trace.SpanContext{}.
-		WithTraceID(trace.TraceID(tp.TraceId)).
-		WithSpanID(trace.SpanID(tp.SpanId)).
-		WithTraceFlags(flags).
-		WithRemote(true)
-	ctx, otelSpan = tracer.Start(
-		trace.ContextWithRemoteSpanContext(context.Background(), sc),
-		fmt.Sprintf("tofu %s", displayArgs),
-	)
-}
-```
-
-</Transform>
-
----
-
 # Takeaways
 
 <Transform :scale="1.7">
@@ -313,10 +286,10 @@ layout: two-cols
   
 <div class="grid grid-cols-2 mt-12 ml-27 w-50">
   <div class="h-48">
-    <QRCode value="https://liatrio.com" />
+    <QRCode value="https://hubs.ly/Q02yrGwg0" />
   </div>
-  <div class="h-8 mt-7 ml-5">
-    <h2>liatrio.com</h2>
+  <div class="h-8 -mt-1 ml-5">
+    <p class="text-l"><i>Observing Delivery Platforms.pdf</i></p>
   </div>
 </div>
   
