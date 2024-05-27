@@ -9,6 +9,10 @@ backgroundSize: contain
 ---
 
 <style>
+.slidev-layout.cover h1 {
+   @apply text-3xl;
+}
+
 h1 {
   font-family: "DM Sans";
   text-transform: none;
@@ -27,29 +31,15 @@ ul ul {
 }
 </style>
 
-# Tracing Terraform Modules 
+# Enabling Product Thinking for Terraform Modules
 
-### Enabling Product Thinking with OpenTelemetry (and OpenTofu)
+### with OpenTelemetry (and OpenTofu)
 
 Blair Drummond
 
 ---
 
-![OpenTofu](/opentofu.svg){width=400px}
-
-<Transform :scale="1.8">
-
-- The Open Source Successor to Terraform
-
-- Also `Weave TF-Controller => Flux Tofu-Controller`
-
-</Transform>
-
----
-
-# A Trace is like Poutine
-
-![Traces Explained](/trace-explained2.png)
+![TF Modules](/tf-modules.png){width=880px}
 
 ---
 layout: image-right
@@ -61,9 +51,11 @@ backgroundSize: 30em 90%
 
 <Transform :scale="1.7">
 
-- Security Guardrails built-in
+- "Golden Path"
 
 - Quick-Start for app teams
+
+- Security Guardrails built-in
 
 </Transform>
 
@@ -73,9 +65,9 @@ backgroundSize: 30em 90%
 
 <Transform :scale="1.8">
 
-- Are your modules being used? Which ones?
+- Which versions of your modules are being used?
 
-- Are errors reported manually or automatically?
+- Can we measure error rates?
 
 </Transform>
 
@@ -93,7 +85,7 @@ backgroundSize: 30em 90%
 
 ---
 
-# What could "Good" Look like? 
+# Terraform modules as a Product
 
 <Transform :scale="1.8">
 
@@ -107,46 +99,117 @@ backgroundSize: 30em 90%
 
 ---
 
-# Insight requires instrumentation end-to-end
+# Instrumenting OpenTofu
 
 <Transform :scale="1.8">
 
-- Instrument [OpenTofu](https://opentofu.org/) 
+- We instrumented OpenTofu to try this out!
 
-- Instrument the Orchestator:
-  + in this case, the [Flux Tofu-Controller](https://github.com/flux-iac/tofu-controller)
+- But, `tofu init` and `tofu apply` couldn't share context
+
+- Needed to instrument a layer up
 
 </Transform>
 
 ---
 
-## Tofu-Controller (Flux) orchestrates `tofu plan/apply`
+# Tofu-Controller to join `init` and `apply`
 
-![tofu-controller](/tf-controller-basic-architecture.png){width=800}
+<div class="grid grid-cols-2 mt-0 ml-27">
 
----
-layout: image-right
-image: /trace-with-errors.png
-backgroundSize: 30em 70%
----
+<div class="w-100 mt-20 -ml-30">
 
-<div class="mb-20"></div>
+- Needed custom handling between `init` and `apply`
 
-### This would be a boring talk if we didn't have code
+- Opted to instrument the [Flux Tofu-Controller](https://github.com/flux-iac/tofu-controller)
 
-- [github.com/liatrio/tag-o11y-quick-start-manifests](tag-o11y-quick-start-manifests)
-
-<div class="ml-30 mt-5">
-<QRCode value="https://github.com/liatrio/tag-o11y-quick-start-manifests" />
 </div>
 
-- *This is a PoC, but this aligns with ongoing efforts in the OTel community*
+
+<div class="w-120 -ml-20">
+
+### Jenkins did this first with the OTel plugin
+
+![Jenkins](/jenkins.png)
+
+</div>
+</div>
+
+---
+
+# Trace of `tofu-controller` pipeline
+
+![Trace](/trace-with-errors.png){width=750}
+
+---
+
+## The Who, What, Where of a Tofu Apply
+
+<Transform :scale="1.9">
+
+```yaml
+# simplified Terraform resource
+kind: Terraform
+metadata:
+  name: postgresql-rds        # <-- WHAT
+  namespace: backstage-system # <-- WHO
+spec:
+  sourceRef: # <-- WHERE
+    url: github.com/liatrio/rds-terraform-module
+    ref:
+      branch: main 
+```
+
+</Transform>
+
+---
+
+# Refesher on Traces
+
+![Traces Explained](/trace-explained2.png)
 
 ---
 layout: image
 image: /detailed-trace.png
 backgroundSize: 100%
 ---
+
+
+---
+layout: image
+image: /module-usage.png
+backgroundSize: 100%
+---
+
+
+---
+
+# Try this out yourself! Everything on Github
+
+
+<div class="grid grid-cols-2 mt-22 ml-27">
+
+<div class="w-80 -ml-20">
+
+<Transform :scale="1.8">
+
+- Instrumented OpenTofu 
+- Instrumented Tofu-Controller
+- A demo Grafana Dashboard
+
+</Transform>
+
+</div>
+
+<div class="ml-30 mt-10">
+<QRCode size=150 value="https://github.com/liatrio/tag-o11y-quick-start-manifests" />
+
+[liatrio/tag-o11y-quick-start-manifests](https://github.com/liatrio/tag-o11y-quick-start-manifests)
+
+</div>
+
+</div>
+
 
 ---
 
@@ -162,33 +225,29 @@ backgroundSize: 100%
 
 ---
 
-# Deriving metrics
+# Takeaways
 
-<Transform :scale="1.7">
+<div class="mt-30"></div>
 
-- Which modules are widely used? Prioritize!
+<Transform :scale="1.8">
 
-- Are people upgrading their Terraform modules?
+### CI/CD Tracing is the next frontier
 
-- Drift-Detection: important to catch!
+- *We think this will feel obvious in retrospect.*
 
 </Transform>
 
 ---
-layout: image
-image: /module-usage.png
-backgroundSize: 100%
----
-
----
 
 <Transform :scale="1.7">
 
-# Moving Upstream
+# What's Next
 
-- The stuff we did isn't spec compliant, yet...
+- Jenkins led the way with their OTel plugin
 
-- ...Because we're working upstream on the spec
+- Other CI/CD engines (github, gitlab, etc) need to catch up
+
+- Need CI/CD Semantic Conventions to unify approaches
 
 </Transform>
 
@@ -197,35 +256,6 @@ layout: image
 image: /ci-cd-conventions.png
 backgroundSize: 90%
 ---
-
----
-  
-# CI/CD Observability end-to-end
-  
-<div class="grid grid-cols-2 mt-12 ml-10 w-250">
-  <div class="h-48 mt-15">
-    <p class="flex -ml-11" style="width: 220px; text-align: center;">Liatrio's Grafana Dashboard</p>
-    <QRCode value="https://grafana.com/grafana/dashboards/20976-engineering-effectiveness-metrics/" size=130 />
-  </div>
-  <div class="h-480 -ml-70 -mt-10">
-
-![Git Metrics](/grafana.drawio.png){width=600}
-
-  </div>
-</div>
-
----
-
-# Takeaways
-
-<Transform :scale="1.7">
-
-### Tracing isn't just for Web Services
-
-- OTel for CI/CD and Batch is going to be a game-changer.
-- *This technology will all feel obvious in retrospect.*
-
-</Transform>
 
 ---
 
