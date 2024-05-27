@@ -51,8 +51,6 @@ backgroundSize: 30em 90%
 
 <Transform :scale="1.7">
 
-- "Golden Path"
-
 - Quick-Start for app teams
 
 - Security Guardrails built-in
@@ -60,32 +58,40 @@ backgroundSize: 30em 90%
 </Transform>
 
 ---
+layout: image-right
+image: /you-dont.jpg
+backgroundSize: 30em 90%
+---
 
-# How do we measure success?
+# Platform Teams today
+
+<div class="mt-20"></div>
+
+### Which versions of your modules are being used?
+
+<Transform :scale="3.8">🤷‍♀️</Transform>
+
+<div class="mt-20"></div>
+
+### How are errors reported and handled?
+
+<Transform :scale="1.4">... DMs on Slack?</Transform>
+
+---
+
+# Templates as a Product
 
 <Transform :scale="1.8">
 
-- Which versions of your modules are being used?
+- This is a larger problem we see right now
 
-- Can we measure error rates?
-
-</Transform>
-
----
-
-# ...This is just Observability
-
-<Transform :scale="2.1">
-
-- *traces:* see speed, errors, and dependencies
-
-- *metrics:* capture usage statistics
+- We need observability for Developer Experience products
 
 </Transform>
 
 ---
 
-# Terraform modules as a Product
+# Let's start with Terraform
 
 <Transform :scale="1.8">
 
