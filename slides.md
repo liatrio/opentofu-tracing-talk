@@ -51,9 +51,9 @@ backgroundSize: 30em 90%
 
 <Transform :scale="1.7">
 
-- Quick-Start for app teams
-
 - Security Guardrails built-in
+
+- Reduce cognitive load
 
 </Transform>
 
@@ -71,33 +71,30 @@ backgroundSize: 30em 90%
 
 <Transform :scale="3.8">🤷‍♀️</Transform>
 
-<div class="mt-20"></div>
+---
+
+<Transform :scale="1.4">
 
 ### How are errors reported and handled?
 
-<Transform :scale="1.4">... DMs on Slack?</Transform>
+<Transform :scale="1.4">... tickets from frustrated developers?</Transform>
 
----
+<div class="mt-20"></div>
 
-# Templates as a Product
+### How do we prioritize improvements?
 
-<Transform :scale="1.8">
-
-- This is a larger problem we see right now
-
-- We need observability for Developer Experience products
+<Transform :scale="1.4">... </Transform>
 
 </Transform>
 
+
 ---
 
-# Let's start with Terraform
+# Making it Observable
 
 <Transform :scale="1.8">
 
 - Trace the modules used (recursively)
-
-- Understand which teams are calling these modules
 
 - Correlate errors to the modules and teams impacted
 
@@ -113,33 +110,19 @@ backgroundSize: 30em 90%
 
 - But, `tofu init` and `tofu apply` couldn't share context
 
-- Needed to instrument a layer up
-
 </Transform>
 
 ---
 
 # Tofu-Controller to join `init` and `apply`
 
-<div class="grid grid-cols-2 mt-0 ml-27">
-
-<div class="w-100 mt-20 -ml-30">
-
-- Needed custom handling between `init` and `apply`
+<Transform :scale="1.8">
 
 - Opted to instrument the [Flux Tofu-Controller](https://github.com/flux-iac/tofu-controller)
 
-</div>
+- (CI/CD pipeline could also work)
 
-
-<div class="w-120 -ml-20">
-
-### Jenkins did this first with the OTel plugin
-
-![Jenkins](/jenkins.png)
-
-</div>
-</div>
+</Transform>
 
 ---
 
@@ -216,44 +199,25 @@ backgroundSize: 100%
 
 </div>
 
-
 ---
 
-# Why this is awesome
-
-<Transform :scale="1.7">
-
-- Existing terraform modules require no changes.
-
-- Gets all submodule version info, *even for unpinned modules*. 
-
-</Transform>
-
----
-
-# Takeaways
+# Food for thought 
 
 <div class="mt-30"></div>
 
 <Transform :scale="1.8">
 
-### CI/CD Tracing is the next frontier
-
-- *We think this will feel obvious in retrospect.*
+### How could Tracing improve your CI/CD?
 
 </Transform>
 
 ---
 
+# OpenTelemetry for CI/CD: work in progress
+
 <Transform :scale="1.7">
 
-# What's Next
-
-- Jenkins led the way with their OTel plugin
-
-- Other CI/CD engines (github, gitlab, etc) need to catch up
-
-- Need CI/CD Semantic Conventions to unify approaches
+- Work ongoing on common standards for this
 
 </Transform>
 
@@ -271,15 +235,20 @@ backgroundSize: 90%
 Thanks to my Liatrio colleagues, who implemented a lot of this work and without whom there would not have been a demo!
 </div>
 
-<div class="slidev-layout flex -mt-10 ml-10 w-200">
-  <div class="item flex">
+<Transform :scale="1">
+
+<div class="grid grid-cols-2 mt-0 ml-30 w-200 h-400">
+  <div class="slidev-layout flex w-80 h-10">
     <Portrait src="/ryan.png" name="Ryan Hoofard" title="DevOps Engineer" />
   </div>
-  <div class="item flex">
+  <div class="slidev-layout flex -ml-20 -mt-1 w-85 h-10">
     <Portrait src="/alice.png" name="Alice Jones" title="Lead DevOps Engineer" />
   </div>
 </div>
 
+</Transform>
+
+- Test
 
 ---
 layout: two-cols
